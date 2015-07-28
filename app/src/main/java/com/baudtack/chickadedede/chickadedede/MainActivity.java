@@ -4,14 +4,45 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.widget.Button;
+import android.widget.EditText;
+import android.view.View;
+import android.content.SharedPreferences;
 
 public class MainActivity extends ActionBarActivity {
+
+    Button btnLogin;
+    EditText etConsumerKey;
+    EditText etConsumerSecret;
+    public static final String PREFS_NAME = "chickadedede_prefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        btnLogin = (Button)findViewById(R.id.btnLogin);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+                SharedPreferences.Editor editor = settings.edit();
+                etConsumerKey = (EditText)findViewById(R.id.etConsumerKey);
+                etConsumerSecret = (EditText)findViewById((R.id.etConsumerSecret));
+                editor.putString("consumer_key", etConsumerKey.getText().toString());
+                editor.putString("consumer_secret", etConsumerSecret.getText().toString());
+                editor.commit();
+            }});
+
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        String consumerKey = settings.getString("consumer_key", "");
+        String consumerSecret = settings.getString("consumer_secret", "");
+
+        etConsumerKey = (EditText)findViewById(R.id.etConsumerKey);
+        etConsumerSecret = (EditText)findViewById(R.id.etConsumerSecret);
+
+        etConsumerKey.setText(consumerKey);
+        etConsumerSecret.setText(consumerSecret);
+
     }
 
     @Override
@@ -35,4 +66,6 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
