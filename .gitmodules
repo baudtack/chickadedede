@@ -1,0 +1,3 @@
+[submodule "libs/TwitterOAuthView"]
+	path = libs/TwitterOAuthView
+	url = git@github.com:TakahikoKawasaki/TwitterOAuthView.git

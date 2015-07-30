@@ -31,3 +31,4 @@ proguard/
 .DS_Store
 /build
 /captures
+twitter4j.properties
